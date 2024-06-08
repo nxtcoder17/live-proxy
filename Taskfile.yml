@@ -1,0 +1,6 @@
+version: 3
+
+tasks:
+  run:
+    cmds:
+      - go run . --addr=:8081 --proxy-addr localhost:8083

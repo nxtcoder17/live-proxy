@@ -1,0 +1,38 @@
+<head>
+  <title>{{.Title}}</title>
+  <!-- <link rel="stylesheet" href="/static/css/output.css" /> -->
+  <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+  <script>
+      <!-- https://htmx.org/api/#createWebSocket -->
+      htmx.createWebSocket = function(url) {
+        return new WebSocket(url, ['nxtcoder17-live-proxy', 'wss']);
+      };
+      htmx.on("htmx:config", function(e) {
+        e.config.log = true;
+      });
+      htmx.on("htmx:wsOpen", function(e) {
+        console.log("successfully connected to websocket server")
+      })
+      htmx.on("htmx:wsBeforeMessage", function(e) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(e.detail.message, 'text/html');
+        let el = doc.getElementById("proxy-reachable");
+        if (el != null && el.innerHTML == "true") {
+          console.log("proxy reachable, reloading now")
+          // location.reload()
+        }
+      })
+    </script>
+
+    <!-- ws-connect="{{.WebsocketURL}}" -->
+    <body 
+      hx-ext="ws" 
+      ws-connect="/ws"
+      class="container mx-auto flex flex-col gap-4 bg-green-200 py-4"
+
+      >
+      <div>You are connected to the websocket server</div>
+      <div>Current status: <span id="status-text"></span> </div>
+    </body>
+</head>
