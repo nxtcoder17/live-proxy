@@ -2,6 +2,19 @@
   <title>{{.Title}}</title>
   <!-- <link rel="stylesheet" href="/static/css/output.css" /> -->
   <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <script> -->
+  <!--   tailwind.config = { -->
+  <!--     theme: { -->
+  <!--       extend: { -->
+  <!--         colors: { -->
+  <!--           clifford: '#da373d', -->
+  <!--         } -->
+  <!--       } -->
+  <!--     } -->
+  <!--   } -->
+  <!-- </script> -->
+
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
   <script>
       <!-- https://htmx.org/api/#createWebSocket -->
@@ -20,19 +33,19 @@
         let el = doc.getElementById("proxy-reachable");
         if (el != null && el.innerHTML == "true") {
           console.log("proxy reachable, reloading now")
-          // location.reload()
+          location.reload()
         }
       })
     </script>
 
-    <!-- ws-connect="{{.WebsocketURL}}" -->
     <body 
       hx-ext="ws" 
-      ws-connect="/ws"
+      ws-connect="{{.WebsocketPath}}"
       class="container mx-auto flex flex-col gap-4 bg-green-200 py-4"
 
       >
-      <div>You are connected to the websocket server</div>
+      <p id="banner" class="text-4xl">You are now on live proxy landing page</p>
+      <div id="status-icon"></div>
       <div>Current status: <span id="status-text"></span> </div>
     </body>
 </head>

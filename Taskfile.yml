@@ -3,4 +3,5 @@ version: 3
 tasks:
   run:
     cmds:
-      - go run . --addr=:8081 --proxy-addr localhost:8083
+      # - fwatcher --exec 'go run . --addr=:8081 --proxy-addr localhost:8083' --ext .go --ext .html
+      - fwatcher --exec 'go build -o bin/live-proxy .; ./bin/live-proxy --addr=:8081 --proxy-addr localhost:8083' --ext .go --ext .html

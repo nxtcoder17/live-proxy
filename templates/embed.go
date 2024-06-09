@@ -16,8 +16,8 @@ const (
 )
 
 type HomePageArgs struct {
-	Title        string
-	WebsocketURL string
+	Title         string
+	WebsocketPath string
 }
 
 type Template struct {
